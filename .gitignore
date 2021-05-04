@@ -1,0 +1,5 @@
+shoppingListAPI/.env
+shoppingList/.env
+
+shoppingListAPI/node_modules
+shoppingList/node_modules

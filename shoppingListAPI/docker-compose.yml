@@ -1,0 +1,35 @@
+version: '3'
+services:
+  web:
+    image: "shoppinglistapi"
+    build: .
+    command: "node index.js"
+    ports:
+      - "3000:3000"
+    environment:
+     - DD_AGENT_HOST=datadog-agent
+     - DD_TRACE_AGENT_PORT=8126
+     - DD_CLIENT_TOKEN=${CLIENTTOKEN}
+    depends_on:
+      - "mongo"
+      - "datadog-agent"
+  datadog-agent:
+    image: gcr.io/datadoghq/agent:latest
+    environment:
+     - DD_API_KEY=${DD_API_KEY}
+     - DD_SITE=datadoghq.com
+     - DD_ENV=dev
+     - DD_APM_ENABLED=true
+     - DD_APM_NON_LOCAL_TRAFFIC=true
+     - DD_CLIENT_TOKEN=${CLIENTTOKEN}
+
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+     - /proc/:/host/proc/:ro
+     - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+    ports:
+      - "127.0.0.1:8126:8126/tcp"
+  mongo:
+    image: "mongo"
+    ports:
+      - "27017:27017"
