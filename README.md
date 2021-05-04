@@ -12,7 +12,7 @@ Below steps to be followed once react native CLI set up followed here:https://re
 * run ``` docker-compose build```
 * run ``` docker-compose up```
 
-#### Set. up Ngrok to make the API accessible outside the local network
+#### Set up Ngrok to make the API accessible outside the local network
 * Install here:https://ngrok.com/download  
 * run ``` ngrok http 3000```
 * Grab the forwarding 'https' prefixed url returned, and use in next section below
